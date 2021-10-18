@@ -1,0 +1,187 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  padding:0;
+  margin:0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.4;
+
+  background-color: #f0f0f0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  color:inherit;
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+.site-container {
+  width:90%;
+  margin:0 auto;
+}
+
+
+
+
+.search-section {
+  margin:3rem 0;
+  max-width:400px;
+}
+
+.search {
+  display:flex;
+  padding:0.5rem 0;
+  border-bottom:2px solid #c0c0c0;
+}
+
+.search__input,
+.search__icon {
+  font-size: 1.5rem;
+  background: none;
+  border:none;
+}
+
+.search__input {
+  flex:1;
+  margin-right:0.75rem;
+}
+
+
+.search__btn {
+  background: none;
+  border:none;
+}
+
+.search__icon {
+  color:#4e4e4e;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+/*photo*/
+.photo-section {
+  position: relative;
+}
+
+.photos {
+  position: relative;
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  grid-gap:2rem;
+}
+
+.photo {
+  position: relative;
+  width:100%;
+  overflow:hidden;
+}
+
+.photo__img {
+  position: relative;
+  display:block;
+  width:100%;
+  max-width:500px;
+  height:280px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.photo__overlay {
+  position: absolute;
+  background:rgba(0, 0, 0, 0.4);
+  width:100%;
+  height:70px;
+  bottom:0;
+
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  color:#fff;
+  padding: 0 0.75rem;
+  /*transition*/
+  max-height: 0;
+  transition: max-height 0.2s ease;
+  overflow: hidden;
+}
+
+
+.photo:hover .photo__overlay {
+  bottom:0;
+  max-height: 100px;
+  transition: max-height 0.2s ease;
+}
+
+
+
+
+
+.overlay__name {
+  font-size:1.15rem;
+  letter-spacing: 0.5px;
+}
+
+.overlay__likes {
+  font-size:0.85rem;
+  font-weight: 400;
+}
+
+.overlay__author {
+  width:40px;
+  height:40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.overlay__author__link,
+.overlay__author__img {
+  width:100%;
+  height:100%;
+  border-radius: inherit;
+}
+
+
+
+
+
+/*widescreen view*/
+@media(min-width:1000px) {
+  .site-container {
+    width:1000px;
+    margin:0 auto;
+  }
+
+  .photos {
+    grid-template-columns:repeat(3, 1fr);
+  }
+}
