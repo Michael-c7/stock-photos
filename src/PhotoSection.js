@@ -1,27 +1,44 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {UserContext} from "./context"
 
 const PhotoSection = () => {
+    const {stockPhotoData,} = useContext(UserContext)
+    // console.log(name)
+
+
     return (
         <section className="photo-section">
         <ul className="photos">
-          <li className="photo">
-            <img className="photo__img" src="https://images.unsplash.com/photo-1593642702749-b7d2a804fbcf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNzY2ODF8MXwxfGFsbHwxfHx8fHx8Mnx8MTYzNDU3NTAwNQ&ixlib=rb-1.2.1&q=80&w=1080" alt=""/>
-            <div className="photo__overlay">
-              <div className="overlay__info">
-                <h2 className="overlay__name">Tyler Rutherford</h2>
-                <h3 className="overlay__likes">1242 Likes</h3>
-              </div>
+          {stockPhotoData.map((item) => {
+            const {
+                  id, 
+                  likes,
+                  user:{name, profile_image, username},
+                  urls:{regular},
+                  } = item;
+            return (
+              <li className="photo" key={id}>
+                <img className="photo__img" src={regular} alt=""/>
+                <div className="photo__overlay">
+                  <div className="overlay__info">
+                    <h2 className="overlay__name">{name}</h2>
+                    <h3 className="overlay__likes">{likes} Likes</h3>
+                  </div>
 
-              <button className="overlay__author">
-                <a className="overlay__author__link" href="/">
-                  <img className="overlay__author__img" src="https://images.unsplash.com/profile-1600096866391-b09a1a53451aimage?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=64&w=64" alt=""/>
-                </a>
-              </button>
-            </div>
-          </li>
+                  <button className="overlay__author">
+                    <a className="overlay__author__link" href={username ? `https://unsplash.com/@${username}` : "https://unsplash.com"} target="_blank" rel="noreferrer">
+                      <img className="overlay__author__img" src={profile_image.small ? profile_image.small : ""} alt=""/>
+                    </a>
+                  </button>
+                </div>
+              </li>
+            )
+          })}
         </ul>
       </section>
     )
 }
 
 export default PhotoSection
+
+

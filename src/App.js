@@ -1,4 +1,5 @@
 import React from 'react';
+import { useScrollPercentage } from 'react-scroll-percentage'
 import SearchSection from './SearchSection';
 import PhotoSection from './PhotoSection';
 
@@ -9,8 +10,14 @@ const searchUrl = `https://api.unsplash.com/search/photos/`
 
 
 function App() {
+  const [ref, percentage] = useScrollPercentage({
+    /* Optional options */
+    threshold: 0,
+  })
+  document.title = `scrolled: ${percentage.toPrecision(2) * 100}%.`
+
   return (
-    <main className="site-container">
+    <main className="site-container" ref={ref}>
       <SearchSection/>
       
       <PhotoSection/>
