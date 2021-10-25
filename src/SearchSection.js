@@ -1,26 +1,24 @@
-import React, {useState, useContext} from 'react'
+import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
-import {UserContext} from "./context"
 
-const SearchSection = () => {
-    const {
-          getPhotoData,
-          searchTerm,
-          setSearchTerm,
-          } = useContext(UserContext);
+const SearchSection = (props) => {
+    const {setTypeOfSearch, searchQuery, setSearchQuery,fetchData} = props
     
 
+    const handleSubmit = e => {
+      // console.log(searchQuery)
+      setTypeOfSearch("search")
+      fetchData()
+    }
+
     
 
-    React.useEffect(() => {
-      getPhotoData()
-    }, []);
 
     return (
       <section className="search-section">
         <div className="search">
-          <input className="search__input" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} type="text" placeholder="Search"/>
-          <button className="search__btn" type="submit" onClick={getPhotoData}>
+          <input className="search__input" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} type="text" placeholder="Search" autoFocus/>
+          <button className="search__btn" type="submit" onClick={handleSubmit}>
             <FaSearch className="search__icon"/>
           </button>
         </div>
