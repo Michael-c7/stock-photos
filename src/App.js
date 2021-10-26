@@ -20,18 +20,24 @@ function App() {
   let query = `&query=${searchQuery}`
 
   const fetchData = async () => {
-    let response = "";
+    let url = "";
+    url = `${mainUrl}${clientID}${page}`
 
     try {
       setLoading(true)
-      if(typeOfSearch === "main") {
-        response = await fetch(`${mainUrl}${clientID}${page}`);
-      } else if(typeOfSearch === "search") {
-        response = await fetch(`${searchUrl}${clientID}${query}${page}`);
-      }
+      // if(typeOfSearch === "main") {
+      //   url = `${mainUrl}${clientID}${page}`
+      //   setStockImageData([])
+      // } else if(typeOfSearch === "search") {
+      //   url = `${searchUrl}${clientID}${page}${query}`
+      //   setStockImageData([])
+      // }
+
+      let response = await fetch(url);
       const data = await response.json()
 
       setLoading(false)
+      // setStockImageData([])
       setStockImageData(data)
     } catch(error) {
       setLoading(false)
@@ -40,14 +46,33 @@ function App() {
     }
   }
 
+
+  const fetchSearch = async () => {
+    let url = "";
+
+    try {
+      setLoading(true)
+      url = `${searchUrl}${clientID}${page}${query}`
+      let response = await fetch(url);
+      const data = await response.json()
+      setLoading(false)
+      setStockImageData([])
+      setStockImageData(data.results)
+    } catch(error) {
+      setLoading(false)
+      setError(true)
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
-    // fetchData()
+    fetchData()
 
     const scrollEvent = window.addEventListener("scroll", (e) => {
     if( (window.innerHeight + window.scrollY) >= document.body.clientHeight) {
       setCurrentPage(currentPage + 1)
       setStockImageData((oldData) => {
-        return [...oldData, ...stockImageData];
+        return [...oldData,...stockImageData];
       })
     }
     })
@@ -70,7 +95,7 @@ function App() {
 
   return (
     <main className="site-container">
-      <SearchSection setTypeOfSearch={setTypeOfSearch} fetchData={fetchData} searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+      <SearchSection fetchSearch={fetchSearch} setTypeOfSearch={setTypeOfSearch} fetchData={fetchData} searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
       {loading ? <h1>Loading now...</h1> : <PhotoSection stockImageData={stockImageData} loading={loading} error={error}/>}
       
     </main>

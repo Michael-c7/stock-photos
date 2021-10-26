@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 
 const SearchSection = (props) => {
-    const {setTypeOfSearch, searchQuery, setSearchQuery,fetchData} = props
+    const {fetchSearch,setTypeOfSearch, searchQuery, setSearchQuery,fetchData} = props
     
 
     const handleSubmit = e => {
-      // console.log(searchQuery)
-      setTypeOfSearch("search")
-      fetchData()
+      e.preventDefault()
+      fetchSearch()
     }
 
     
